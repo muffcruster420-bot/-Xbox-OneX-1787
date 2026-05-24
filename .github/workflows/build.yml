@@ -1,0 +1,21 @@
+name: Build Xbox UWP
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Godot 4.2.2
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: 4.2.2
+          export-templates: true
+      - name: Export UWP
+        run: |
+          mkdir build
+          godot --headless --export-release "Windows UWP" build/XboxOneX.appx
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: XboxOneX-1787-Build
+          path: build/
