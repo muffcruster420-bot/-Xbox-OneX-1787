@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxy6q5m7d8p4e"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_7mwuc"]
+[node name="Main" type="Node2D"]
+script = ExtResource("1_7mwuc")
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Xbox One X Model 1787
+Press A to start"
+horizontal_alignment = 1
+vertical_alignment = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_font_sizes/font_size = 64
