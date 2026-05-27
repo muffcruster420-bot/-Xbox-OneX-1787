@@ -1,0 +1,11 @@
+{
+  "models": [
+    {
+      "title": "Groq Copilot",
+      "provider": "openai",
+      "model": "llama-3.1-70b-versatile",
+      "apiBase": "https://api.groq.com/openai/v1",
+      "apiKey": "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
+    }
+  ]
+}
