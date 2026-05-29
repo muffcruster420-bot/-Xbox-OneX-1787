@@ -1,7 +1,7 @@
 name: Build Windows
 on: [push, workflow_dispatch]
 jobs:
-  export:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
