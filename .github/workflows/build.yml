@@ -3,11 +3,14 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     steps:
       - uses: actions/checkout@v4
       - uses: chickensoft-games/setup-godot@v2
         with:
           version: 4.3.0
+      - run: mkdir -p build/windows
       - run: godot --headless --export-release "Windows Desktop"
       - uses: actions/upload-artifact@v4
         with:
