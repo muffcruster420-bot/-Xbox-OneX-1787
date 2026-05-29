@@ -1,11 +1,17 @@
-name: Package Hunters Wild
+name: Build Windows
 on: [push, workflow_dispatch]
 jobs:
-  package:
+  export:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/upload-artifact@v4
+      - uses: chickensoft-games/setup-godot@v2
         with:
-          name: HuntersWild-Project
-          path: .
+          version: 4.3.0
+      - name: Export Windows
+        run: godot --headless --export-release "Windows Desktop"
+      - name: Upload exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: HuntersWild-Windows
+          path: build/windows/
