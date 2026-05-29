@@ -1,21 +1,28 @@
 name: Build Hunters Wild
-on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 jobs:
-  export-windows:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Godot 4
-        uses: chickensoft-games/setup-godot@v2
+      - uses: chickensoft-games/setup-godot@v2
         with:
           version: 4.3.0
+      - name: Make Windows preset
+        run: |
+          cat > export_presets.cfg << 'PRESET'
+[application]
+config/name="Hunters Wild"
+[preset.0]
+name="Windows Desktop"
+platform="Windows Desktop"
+runnable=true
+export_path="build/windows/HuntersWild.exe"
+PRESET
       - name: Export
         run: |
           mkdir -p build/windows
-          godot --headless --export-release "Windows Desktop" build/windows/HuntersWild.exe
+          godot --headless --export-release "Windows Desktop"
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
