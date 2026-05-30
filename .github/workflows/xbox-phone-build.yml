@@ -1,5 +1,4 @@
 name: Phone Build - Xbox
-
 on:
   push:
     branches: [ main ]
@@ -9,8 +8,7 @@ jobs:
   build-windows:
     runs-on: windows-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           lfs: true
 
@@ -20,17 +18,17 @@ jobs:
           version: 4.2.2
           use-dotnet: false
 
-      - name: Setup export templates
-        run: |
-          godot --headless --quit --export-templates
+      - name: List export presets (debug)
+        run: godot --headless --path . --export-release --help || true
 
       - name: Export Windows build
         run: |
           mkdir build
-          godot --headless --path . --export-release "Windows Desktop" build/HuntersWild.exe
+          godot --headless --verbose --path . --export-release "Windows Desktop" build/HuntersWild.exe
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: HuntersWild-Windows
           path: build/
+          if-no-files-found: error
