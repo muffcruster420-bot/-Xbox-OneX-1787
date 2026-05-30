@@ -1,0 +1,25 @@
+name: Phone Build - Xbox
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  build-windows:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Setup Godot 4.2.2 with templates
+        uses: solarlabyrinth/action-setup-godot@v2
+        with:
+          version: 4.2.2-stable
+      - name: Export Windows build
+        run: |
+          mkdir -p build
+          godot --headless --verbose --export-release "Windows Desktop" build/HuntersWild.exe
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HuntersWild-Windows
+          path: build/
