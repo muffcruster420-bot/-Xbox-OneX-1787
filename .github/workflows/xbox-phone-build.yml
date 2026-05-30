@@ -1,0 +1,36 @@
+name: Phone Build - Xbox
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Godot 4.2.2
+        uses: chickensoft-games/setup-godot@v1
+        with:
+          version: 4.2.2
+          use-dotnet: false
+
+      - name: Setup export templates
+        run: |
+          godot --headless --quit --export-templates
+
+      - name: Export Windows build
+        run: |
+          mkdir build
+          godot --headless --path . --export-release "Windows Desktop" build/HuntersWild.exe
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HuntersWild-Windows
+          path: build/
